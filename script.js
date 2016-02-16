@@ -21,7 +21,6 @@ function addClick() {
     console.log('add button is clicked!');
 }
 
-
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
  */
@@ -89,21 +88,23 @@ function addStudentToDom(){
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
-
-
+function resetApplication(){
+    clearAddStudentForm();
+    console.log('student array: ', student_array);
+    $('tbody').empty();
+    student_array = [];
+}
+function deleteStudent(){
+    console.log("deleteStudent is triggered", this);
+    $(this).closest("tr").remove();
+}
 /**
  * Listen for the document to load and reset the data to the initial state
  */
 
-
-
-
 $(document).ready(function(){
-
     console.log('jquery is fine!');
-    $('.btn-danger').on('click', function(){
-        $(this).closest("tr").remove();
-    });
+    $('.btn-danger').on('click', deleteStudent);
     /*$('#cancelButton').on('click', cancelClick);*/
     /*$('.btn-default').on('click', function(){
         console.log('cancel button is clicked!');
