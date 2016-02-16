@@ -1,10 +1,11 @@
 /**
  * Define all global variables here
  */
-/**
- * student_array - global array to hold student objects
- * @type {Array}
- */
+/**/
+var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
+//- global array to hold student objects
+// /* @type {Array}
+// */
 
 /**
  * inputIds - id's of the elements that are used to add students
