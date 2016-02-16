@@ -36,17 +36,18 @@ function cancelClick(){
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
-function removeRow(){
-    console.log('remove button is clicked!');
 
-    //console.log('this is', this);
-    //$(this).remove();
-}
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
-
+function calculateAverage(students){
+    var sum = 0;
+    for(var i in students){
+        sum += students[i].grade;
+    }
+    return (sum/students.length).toFixed(1);
+}
 /**
  * updateData - centralized function to update the average and call student list update
  */
