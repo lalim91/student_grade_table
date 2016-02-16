@@ -17,6 +17,7 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  */
 function addClick() {
     addStudent();
+    updateData();
     console.log('add button is clicked!');
 }
 
@@ -65,17 +66,26 @@ function calculateAverage(students){
 /**
  * updateData - centralized function to update the average and call student list update
  */
-
+function updateData(){
+    calculateAverage();
+    updateStudentList();
+}
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
-
+function updateStudentList(){
+    for(var i = 0; i < student_array.length; i++){
+        $('.student-list-container>tbody').append(st)
+    }
+}
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
  * @param studentObj
  */
+function addStudentToDom(){
 
+}
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
