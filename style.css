@@ -1,8 +1,11 @@
-body{
-
+h3{
+    display: none;
 }
-@media only screen and (max-width: 667px) {
-    small{
-        text-align: right;
+@media screen and (max-width: 667px) {
+    h3{
+        display: block;
+    }
+    h1{
+        display: none;
     }
 }
