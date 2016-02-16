@@ -15,25 +15,17 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * addClicked - Event Handler when user clicks the add button
  */
-
- function addClicked() {
+function addClick() {
     addStudent();
-}
-
-
-
-function addClick(){
     console.log('add button is clicked!');
 }
+
 
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
  */
-function cancelClick(){
-    console.log('cancel button is clicked!');
-    $('#studentName').val("");
-    $('#course').val("");
-    $('#studentGrade').val("");
+function cancelClick() {
+    clearAddStudentForm();
 }
 /**
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
@@ -49,10 +41,16 @@ function addStudent(){
     student_array.push(student_object);
     console.log(student_array);
 }
+
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
-
+function clearAddStudentForm(){
+    console.log('cancel button is clicked!');
+    $('#studentName').val("");
+    $('#course').val("");
+    $('#studentGrade').val("");
+}
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
@@ -91,7 +89,7 @@ function calculateAverage(students){
 
 
 $(document).ready(function(){
-    addClick();
+
     console.log('jquery is fine!');
     $('.btn-danger').on('click', function(){
         $(this).closest("tr").remove();
