@@ -15,9 +15,17 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * addClicked - Event Handler when user clicks the add button
  */
+
+ function addClicked() {
+    addStudent();
+}
+
+
+
 function addClick(){
     console.log('add button is clicked!');
 }
+
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
  */
@@ -32,7 +40,15 @@ function cancelClick(){
  *
  * @return undefined
  */
-
+function addStudent(){
+   var student_object = {
+       name:$('#studentName').val(),
+       course:$('#course').val(),
+       grade:$('#studentGrade').val()
+   };
+    student_array.push(student_object);
+    console.log(student_array);
+}
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
@@ -71,7 +87,11 @@ function calculateAverage(students){
  * Listen for the document to load and reset the data to the initial state
  */
 
+
+
+
 $(document).ready(function(){
+    addClick();
     console.log('jquery is fine!');
     $('.btn-danger').on('click', function(){
         $(this).closest("tr").remove();
@@ -82,3 +102,4 @@ $(document).ready(function(){
         /!*$('#studentName').val('');*!/
     });*/
 });
+
