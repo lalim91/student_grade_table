@@ -16,11 +16,9 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  * addClicked - Event Handler when user clicks the add button
  */
 
- function addClicked() {
+function addClicked() {
     addStudent();
 }
-
-
 
 function addClick(){
     console.log('add button is clicked!');
