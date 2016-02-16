@@ -41,9 +41,13 @@ function cancelClick(){
  * @return undefined
  */
 function addStudent(){
-   var input = $(input).val()
-
-
+   var student_object = {
+       name:$('#studentName').val(),
+       course:$('#course').val(),
+       grade:$('#studentGrade').val()
+   };
+    student_array.push(student_object);
+    console.log(student_array);
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -83,11 +87,10 @@ function removeRow(){
  */
 
 
-document.ready(function(){
 
-});
 
 $(document).ready(function(){
+    addClick();
     console.log('jquery is fine!');
     $('.btn-danger').on('click', function(){
         $(this).closest("tr").remove();
