@@ -15,6 +15,10 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * addClicked - Event Handler when user clicks the add button
  */
+ function addClicked() {
+    addStudent();
+}
+
 
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
@@ -25,7 +29,11 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  *
  * @return undefined
  */
+function addStudent(){
+   var input = $(input).val()
 
+
+}
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
@@ -57,3 +65,7 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * Listen for the document to load and reset the data to the initial state
  */
+
+document.ready(function(){
+
+});
