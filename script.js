@@ -16,13 +16,7 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  * addClicked - Event Handler when user clicks the add button
  */
 
- function addClicked() {
-    addStudent();
-}
-
-
-
-function addClick(){
+ function addClick() {
     console.log('add button is clicked!');
 }
 
@@ -91,7 +85,7 @@ function calculateAverage(students){
 
 
 $(document).ready(function(){
-    addClick();
+
     console.log('jquery is fine!');
     $('.btn-danger').on('click', function(){
         $(this).closest("tr").remove();
