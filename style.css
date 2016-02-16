@@ -1,6 +1,9 @@
 h3{
     display: none;
 }
+.form-control{
+    width: 100%;
+}
 @media screen and (max-width: 667px) {
     h3{
         display: block;
