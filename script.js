@@ -15,11 +15,18 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * addClicked - Event Handler when user clicks the add button
  */
-
+function addClick(){
+    console.log('add button is clicked!');
+}
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
  */
-
+function cancelClick(){
+    console.log('cancel button is clicked!');
+    $('#studentName').val("");
+    $('#course').val("");
+    $('#studentGrade').val("");
+}
 /**
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
  *
@@ -29,7 +36,12 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
+function removeRow(){
+    console.log('remove button is clicked!');
 
+    //console.log('this is', this);
+    //$(this).remove();
+}
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
@@ -57,3 +69,15 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 /**
  * Listen for the document to load and reset the data to the initial state
  */
+
+$(document).ready(function(){
+    console.log('jquery is fine!');
+    $('.btn-danger').on('click', function(){
+        $(this).closest("tr").remove();
+    });
+    /*$('#cancelButton').on('click', cancelClick);*/
+    /*$('.btn-default').on('click', function(){
+        console.log('cancel button is clicked!');
+        /!*$('#studentName').val('');*!/
+    });*/
+});
