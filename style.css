@@ -1,6 +1,15 @@
 h3{
     display: none;
 }
+.avgGrade {
+    background-color:gray;
+    color:white;
+    padding:10px;
+    font-size: 75%;
+    border-radius: 25%;
+
+
+}
 .form-control{
     width: 100%;
 }
