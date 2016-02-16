@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
 <head>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="style.css">-->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <!--<meta name="viewport" content="initial-scale=1, user-scalable=no">-->
+
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
         <!--=================Header==================-->
         <div class="row">
@@ -48,8 +49,8 @@
                 <input type="text" class="form-control" name="studentGrade" id="studentGrade"
                        placeholder="Student Grade">
             </div>
-            <button type="button" class="btn btn-success" onclick="">Add</button>
-            <button type="button" class="btn btn-default" onclick="">Cancel</button>
+            <button type="button" class="btn btn-success" onclick="addClick()">Add</button>
+            <button type="button" class="btn btn-default" onclick="cancelClick()">Cancel</button>
         </div>
         <!--=================End Form================-->
 
@@ -69,7 +70,7 @@
                     <th>Harry</th>
                     <th>Potions</th>
                     <th>60</th>
-                    <th><button type="button" class="btn btn-danger" onclick="">Delete</button></th>
+                    <th><button type="button" class="btn btn-danger">Delete</button></th>
                 </tr>
                 <tr>
                     <th>Ron</th>
