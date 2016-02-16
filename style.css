@@ -1,16 +1,8 @@
 body{
 
 }
-@media only screen and (max-width: 500px) {
-    .gridmenu {
-        width:100%;
-    }
-
-    .gridmain {
-        width:100%;
-    }
-
-    .gridright {
-        width:100%;
+@media only screen and (max-width: 667px) {
+    small{
+        text-align: right;
     }
 }
