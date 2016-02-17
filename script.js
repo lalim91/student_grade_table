@@ -42,20 +42,36 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
        DOMposition:null,
-       highlight:null,
+       highlight_high:null,
+       highlight_low:null,
        highlight_highest_check:function(){
-           console.log('highlight recieved');
-           for (var i=0;i<=student_array.length;i++){
-               if(this.grade>student_array[i].grade){
-                   this.highlight = 'highlight'
+           console.log('highlight high recieved');
+           for (var i=0;i<student_array.length-1;i++){
+               if(this.grade>=student_array[i].grade){
+                   student_array[i].highlight_high='none';
+                   this.highlight_high = 'highest';
                } else{
-                   this.highlight = none;
+                   this.highlight_high = 'none';
                }
-
            }
-
-
+           if(this.highlight_high == 'highest'){
+               this.DOMposition.css('background-color','green');
+           }
        },
+       /*highlight_lowest_check:function(){
+           console.log('highlight low recieved');
+           for (var i=0;i<=student_array.length-1;i++){
+               if(this.grade<=student_array[i].grade){
+                   student_array[i].highlight_low='none';
+                   this.highlight_low = 'lowest';
+               } else{
+                   this.highlight_low = 'none';
+               }
+           }
+           if (this.highlight_low == 'lowest'){
+               this.DOMposition.css('background-color','red');
+           }
+       },*/
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
@@ -136,6 +152,7 @@ function addStudentToDom(studentObj){
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
     studentObj.highlight_highest_check();
+    //studentObj.highlight_lowest_check();
     console.log('highlight fired');
 
 }
@@ -167,4 +184,3 @@ $(document).ready(function(){
         /!*$('#studentName').val('');*!/
     });*/
 });
-
