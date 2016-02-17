@@ -74,11 +74,15 @@ function updateData(){
     updateStudentList();
     calculateAverage(student_array);
 }
-/**
+/**ß
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
 function updateStudentList(){
-    addStudentToDom(student_array[student_array.length-1]);
+    $('.student-list-container>.student-list>tbody>tr').remove();
+    for (var i = 0; i<student_array.length; i++){
+        addStudentToDom(student_array[i]);
+    }
+    //addStudentToDom(student_array[student_array.length-1]);
 }
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
