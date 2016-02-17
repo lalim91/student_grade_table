@@ -44,7 +44,7 @@ function addStudent(){
        DOMposition:null,
        highlight_high:null,
        highlight_low:null,
-       /*highlight_highest_check:function(){
+       highlight_highest_check:function(){
            console.log('highlight high recieved');
            for (var i=0;i<student_array.length-1;i++){
                if(this.grade>=student_array[i].grade){
@@ -61,7 +61,7 @@ function addStudent(){
                    student_array[i].DOMposition.css('background-color','inherit');
                }
            }
-       },*/
+       },
        highlight_lowest_check:function(){
            console.log('highlight lowest recieved');
            for (var i=0;i<student_array.length;i++){
@@ -159,7 +159,7 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
-    //studentObj.highlight_highest_check();
+    studentObj.highlight_highest_check();
     studentObj.highlight_lowest_check();
     console.log('highlight fired');
 
