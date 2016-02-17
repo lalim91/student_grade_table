@@ -4,10 +4,11 @@
 /**/
 //var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
 var student_array = [];
-//- global array to hold student objects
-// /* @type {Array}
-// */
-
+var courseList = {
+    'mathematics': null,
+    'material science': null,
+    'art science': null,
+}
 /**
  * inputIds - id's of the elements that are used to add students
  * @type {string[]}
@@ -37,7 +38,7 @@ function cancelClick() {
  */
 function addStudent(){
     var arrayIndex= student_array.length;
-   var student_object = {
+    var student_object = {
        name:$('#studentName').val(),
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
@@ -183,22 +184,10 @@ function resetApplication(){
     $('tbody').empty();
     student_array = [];
 }
-/*function deleteStudent(){
-    console.log("deleteStudent is triggered", this);
-    $(this).closest("tr").remove();
-}*/
 /**
  * Listen for the document to load and reset the data to the initial state
  */
 
 $(document).ready(function(){
     console.log('jquery is fine!');
-    /*$('.btn-danger').on('click', function(){
-        $(this).closest("tr").remove();
-    });*/
-    /*$('#cancelButton').on('click', cancelClick);*/
-    /*$('.btn-default').on('click', function(){
-        console.log('cancel button is clicked!');
-        /!*$('#studentName').val('');*!/
-    });*/
 });
