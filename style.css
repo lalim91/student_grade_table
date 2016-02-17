@@ -16,6 +16,6 @@
 .dropDownHidden{
     display: none;
 }
-.dropDownShow{
-    display: block;
+.dropDownShow:hover{
+    background-color: dodgerblue;
 }

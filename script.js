@@ -2,8 +2,9 @@
  * Define all global variables here
  */
 /**/
-//var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
-var student_array = [];
+var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
+//var student_array = [];
+var courseInput = "stfu"; //initialized for now.
 var courseList = {
     'mathematics': null,
     'material science': null,
@@ -21,7 +22,6 @@ function addClick() {
     addStudent();
     clearAddStudentForm();
     updateData();
-
     console.log('add button is clicked!');
 }
 
@@ -184,10 +184,35 @@ function resetApplication(){
     $('tbody').empty();
     student_array = [];
 }
+function autoComplete(){ console.log("autocomplete() is invoked!");
+    var courseListKeys = Object.keys(courseList); //stores courseList keys into array of strings
+    console.log('the list of courses ', courseListKeys);
+    //console.log('testing the substring: ', courseListKeys[0].substring(0, courseInput.length));
+    console.log('user input in course ', courseInput);
+
+    for(var i in courseListKeys){
+        //$('#courseDropDown').empty();
+        if(courseListKeys[i].substring(0, courseInput.length) == courseInput){
+            //if all characters are equal thus far...
+            var lists = $('<li>',{
+                class:"dropDownShow",
+                text:courseListKeys[i]
+            });
+            ////append the text of courseListKeys to the <li>
+
+            $('#courseDropDown').append(lists).css('display', 'block');
+            //////append the <li> to #courseDropDown
+        }
+    }//END for(var i in courseListKeys)
+}
 /**
  * Listen for the document to load and reset the data to the initial state
  */
-
 $(document).ready(function(){
     console.log('jquery is fine!');
+    $('#course').on('keyup', function(){
+        courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
+        autoComplete(); //invoke autoComplete function
+        //console.log(courseInput);//consolelog everytime a key is pressed
+    });
 });
