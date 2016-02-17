@@ -2,9 +2,12 @@
  * Define all global variables here
  */
 /**/
-var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
-//var student_array = [];
 var courseInput = "stfu"; //initialized for now.
+
+//var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
+var highest;
+var lowest;
+var student_array = [];
 var courseList = {
     'mathematics': null,
     'material science': null,
@@ -43,49 +46,13 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
        DOMposition:null,
-       highlight_high:null,
-       highlight_low:null,
-       highlight_highest_check:function(){
-           console.log('highlight high recieved');
-           for (var i=0;i<student_array.length-1;i++){
-               if(this.grade>=student_array[i].grade){
-                   student_array[i].highlight_high='none';
-                   this.highlight_high = 'highest';
-               } else{
-                   this.highlight_high = 'none';
-               }
-           }
-           for (var i=0;i<student_array.length;i++){
-               if(student_array[i].highlight_high == 'highest'){
-                   student_array[i].DOMposition.css('background-color','green');
-           }else{
-                   student_array[i].DOMposition.css('background-color','inherit');
-               }
-           }
-       },
-       highlight_lowest_check:function(){
-           console.log('highlight lowest recieved');
-           for (var i=0;i<student_array.length;i++){
-               if(this.grade<=student_array[i].grade){
-                   student_array[i].highlight_low='none';
-                   this.highlight_low="lowest";
-               }else{
-                   this.highlight_low = 'none';
-               }
-           }
-           for (var i=0;i<student_array.length-1;i++){
-               if(student_array[i].highlight_low == 'lowest'){
-                   student_array[i].DOMposition.css('background-color','red');
-               }else{
-                   student_array[i].DOMposition.css('background-color','inherit');
-               }
-           }
-       },
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
            student_array.splice(this.arrayIndex,1);
            changeIndex(this.arrayIndex);
+           find_lowest();
+           find_highest();
        },
 
    };
@@ -170,9 +137,10 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
-    studentObj.highlight_highest_check();
-    studentObj.highlight_lowest_check();
-    console.log('highlight fired');
+    console.log('highest fired');
+    console.log('lowest fired');
+    find_lowest();
+    find_highest();
 
 }
 /**
@@ -216,3 +184,43 @@ $(document).ready(function(){
         //console.log(courseInput);//consolelog everytime a key is pressed
     });
 });
+
+function find_highest(){
+    console.log('highest recieved');
+        if(student_array.length == 1){
+            highest = student_array[0]
+        }else {
+            if(Number(highest.grade) < Number(student_array[student_array.length-1].grade)){
+                unhighlight(highest);
+                highest = student_array[student_array.length-1];
+            }
+        }
+    highlight_highest();
+    if (student_array.length == 2){ //this part of the function fixes a highlight bug, since the first entry is both highest and lowest
+        highlight_lowest();
+    }
+}
+
+function find_lowest(){
+    console.log('lowest recieved');
+        if(student_array.length == 1){
+            lowest = student_array[0]
+        }else {
+            if(Number(lowest.grade) > Number(student_array[student_array.length-1].grade)){
+                unhighlight(lowest);
+                lowest = student_array[student_array.length-1];
+            }
+        }
+    highlight_lowest();
+}
+
+function unhighlight(highlighted){
+    highlighted.DOMposition.css('background-color','inherit');
+}
+
+function highlight_highest(){
+    highest.DOMposition.css('background-color','green');
+}
+function highlight_lowest(){
+    lowest.DOMposition.css('background-color','red');
+}
