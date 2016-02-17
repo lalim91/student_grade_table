@@ -19,7 +19,7 @@ var student_array = [];
 function addClick() {
     addStudent();
     clearAddStudentForm();
-    //updateData();
+    updateData();
 
     console.log('add button is clicked!');
 }
@@ -43,9 +43,8 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
-    calculateAverage(student_array);
-    //updateData();
-    addStudentToDom(student_object);
+
+
 }
 
 /**
@@ -55,7 +54,6 @@ function clearAddStudentForm(){
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
-    //updateData();
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
@@ -83,10 +81,7 @@ function updateData(){
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
 function updateStudentList(){
-    for(var i = 0; i < student_array.length; i++){
-        //$('.student-list-container>.student_list>tbody').append(student_array[i]);
-        addStudentToDom(student_array[i]);
-    }
+    addStudentToDom(student_array[student_array.length-1]);
 }
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
