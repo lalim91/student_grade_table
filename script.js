@@ -98,6 +98,7 @@ function addStudentToDom(studentObj){
     var deleteButton = $('<button>').addClass('btn btn-danger').text('Delete'); //delete button
     $(deleteButton).on('click', function(){ //when delete button is clicked...
         $(this).closest("tr").remove(); //remove the entire row..
+
     });
     var studentRow = $('<tr>');
     var tableData;
