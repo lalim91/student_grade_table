@@ -43,10 +43,7 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
-
-
 }
-
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
