@@ -138,3 +138,11 @@ $(document).ready(function(){
     });*/
 });
 
+/*Function highlight_student()
+this function will highlight the student with the highest grade in green, and the student with the lowest grade in red
+ */
+function highlight_student(){
+    for(i=0;i<student_array.length;i++){
+        student_array[i].grade
+    }
+}
