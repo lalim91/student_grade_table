@@ -17,6 +17,7 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  */
 function addClick() {
     addStudent();
+    updateData();
     clearAddStudentForm();
     console.log('add button is clicked!');
 }
@@ -41,6 +42,7 @@ function addStudent(){
     student_object.operations = $('<button>').addClass('btn btn-danger').text('Delete');
     student_array.push(student_object);
     console.log(student_array);
+    updateData();
     addStudentToDom(student_object);
 }
 
@@ -52,31 +54,45 @@ function clearAddStudentForm(){
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
+    updateData();
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
-function calculateAverage(students){
+function calculateAverage(student_array){
     var sum = 0;
-    for(var i in students){
-        sum += students[i].grade;
+    for(var s= 0; s<student_array.length; s++){
+        for(var i in student_array[s]){
+            sum += student_array[s][i].grade;
+        }
     }
+
     return (sum/students.length).toFixed(1);
 }
 /**
  * updateData - centralized function to update the average and call student list update
  */
-
+function updateData(){
+    updateStudentList();
+    calculateAverage(student_array);
+}
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
-
+function updateStudentList(){
+    for(var i = 0; i < student_array.length; i++){
+        //$('.student-list-container>.student_list>tbody').append(student_array[i]);
+        addStudentToDom(student_array[i]);
+    }
+}
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
  * @param studentObj
  */
+
+
 function addStudentToDom(studentObj){
     console.log('addStudentToDom triggered!');
     var studentRow = $('<tr>');
@@ -89,7 +105,6 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     console.log(studentRow);
 }
-
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
