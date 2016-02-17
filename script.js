@@ -48,10 +48,14 @@ function addStudent(){
        highlight_highest_check:function(){
            console.log('highlight high recieved');
            for (var i=0;i<student_array.length;i++){
-               if(this.grade>=student_array[i].grade){
+               if (this.grade<student_array[i].grade){
+                   this.highlight_high = 'none';
+                   student_array[i].highlight_high = 'highest'
+               }
+               if(this.grade>student_array[i].grade){
                    student_array[i].highlight_high='none';
                    this.highlight_high = 'highest';
-               } else{
+               } else {
                    this.highlight_high = 'none';
                }
            }
@@ -63,13 +67,14 @@ function addStudent(){
                }
            }
        },
-       highlight_lowest_check:function(){
+       /*highlight_lowest_check:function(){
            console.log('highlight lowest recieved');
            for (var i=0;i<student_array.length;i++){
                if(this.grade<=student_array[i].grade){
                    student_array[i].highlight_low='none';
                    this.highlight_low="lowest";
                }else{
+                   student_array[i].highlight_low='lowest';
                    this.highlight_low = 'none';
                }
            }
@@ -80,7 +85,7 @@ function addStudent(){
                    student_array[i].DOMposition.css('background-color','inherit');
                }
            }
-       },
+       },*/
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
@@ -171,7 +176,7 @@ function addStudentToDom(studentObj){
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
     studentObj.highlight_highest_check();
-    studentObj.highlight_lowest_check();
+    //studentObj.highlight_lowest_check();
     console.log('highlight fired');
 
 }
