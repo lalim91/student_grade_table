@@ -63,18 +63,19 @@ function clearAddStudentForm(){
 function calculateAverage(student_array){
     var sum = 0;
     for(var s= 0; s<student_array.length; s++){
-        for(var i in student_array[s]){
-            sum += student_array[s][i].grade;
-        }
+        sum += student_array[s].grade;
     }
-    return (sum/student_array.length).toFixed(1);
+
+    $('#avgGrade').append(sum/student_array.length).toFixed(1);
+
+
 }
 /**
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
     updateStudentList();
-    calculateAverage(student_array);
+    //calculateAverage(student_array);
 }
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
