@@ -18,6 +18,7 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
 function addClick() {
     addStudent();
     updateData();
+    clearAddStudentForm();
     console.log('add button is clicked!');
 }
 
@@ -38,9 +39,11 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val()
    };
+    student_object.operations = $('<button>').addClass('btn btn-danger').text('Delete');
     student_array.push(student_object);
     console.log(student_array);
     updateData();
+    addStudentToDom(student_object);
 }
 
 /**
@@ -88,8 +91,19 @@ function updateStudentList(){
  * into the .student_list tbody
  * @param studentObj
  */
-function addStudentToDom(){
 
+
+function addStudentToDom(studentObj){
+    console.log('addStudentToDom triggered!');
+    var studentRow = $('<tr>');
+    var tableheader;
+    //for each value inside object, append it to the th element
+    for(i in studentObj){
+        tableheader = $('<th>').append(studentObj[i]);
+        studentRow.append(tableheader);
+    }
+    $('tbody').append(studentRow);
+    console.log(studentRow);
 }
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
