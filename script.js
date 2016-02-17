@@ -46,7 +46,7 @@ function addStudent(){
        highlight_low:null,
        highlight_highest_check:function(){
            console.log('highlight high recieved');
-           for (var i=0;i<student_array.length-1;i++){
+           for (var i=0;i<student_array.length;i++){
                if(this.grade>=student_array[i].grade){
                    student_array[i].highlight_high='none';
                    this.highlight_high = 'highest';
