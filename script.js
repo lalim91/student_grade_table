@@ -40,6 +40,7 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
+    updateData();
 }
 
 /**
@@ -50,31 +51,36 @@ function clearAddStudentForm(){
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
+    updateData();
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
-function calculateAverage(students){
+function calculateAverage(student_array){
     var sum = 0;
-    for(var i in students){
-        sum += students[i].grade;
+    for(var s= 0; s<student_array.length; s++){
+        for(var i in student_array[s]){
+            sum += student_array[s][i].grade;
+        }
     }
+
     return (sum/students.length).toFixed(1);
 }
 /**
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
-    calculateAverage();
     updateStudentList();
+    calculateAverage(student_array);
 }
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
 function updateStudentList(){
     for(var i = 0; i < student_array.length; i++){
-        $('.student-list-container>tbody').append(st)
+        //$('.student-list-container>.student_list>tbody').append(student_array[i]);
+        addStudentToDom(student_array[i]);
     }
 }
 /**
