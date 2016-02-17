@@ -44,7 +44,7 @@ function addStudent(){
        DOMposition:null,
        highlight_high:null,
        highlight_low:null,
-       highlight_highest_check:function(){
+       /*highlight_highest_check:function(){
            console.log('highlight high recieved');
            for (var i=0;i<student_array.length-1;i++){
                if(this.grade>=student_array[i].grade){
@@ -61,21 +61,25 @@ function addStudent(){
                    student_array[i].DOMposition.css('background-color','inherit');
                }
            }
-       },
-       /*highlight_lowest_check:function(){
-           console.log('highlight low recieved');
-           for (var i=0;i<=student_array.length-1;i++){
+       },*/
+       highlight_lowest_check:function(){
+           console.log('highlight lowest recieved');
+           for (var i=0;i<student_array.length;i++){
                if(this.grade<=student_array[i].grade){
                    student_array[i].highlight_low='none';
-                   this.highlight_low = 'lowest';
-               } else{
+                   this.highlight_low="lowest";
+               }else{
                    this.highlight_low = 'none';
                }
            }
-           if (this.highlight_low == 'lowest'){
-               this.DOMposition.css('background-color','red');
+           for (var i=0;i<student_array.length-1;i++){
+               if(student_array[i].highlight_low == 'lowest'){
+                   student_array[i].DOMposition.css('background-color','red');
+               }else{
+                   student_array[i].DOMposition.css('background-color','inherit');
+               }
            }
-       },*/
+       },
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
@@ -155,8 +159,8 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
-    studentObj.highlight_highest_check();
-    //studentObj.highlight_lowest_check();
+    //studentObj.highlight_highest_check();
+    studentObj.highlight_lowest_check();
     console.log('highlight fired');
 
 }
