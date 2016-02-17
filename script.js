@@ -54,8 +54,12 @@ function addStudent(){
                    this.highlight_high = 'none';
                }
            }
-           if(this.highlight_high == 'highest'){
-               this.DOMposition.css('background-color','green');
+           for (var i=0;i<student_array.length;i++){
+               if(student_array[i].highlight_high == 'highest'){
+                   student_array[i].DOMposition.css('background-color','green');
+           }else{
+                   student_array[i].DOMposition.css('background-color','inherit');
+               }
            }
        },
        /*highlight_lowest_check:function(){
