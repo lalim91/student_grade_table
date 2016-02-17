@@ -97,10 +97,10 @@ function updateStudentList(){
 
 function addStudentToDom(studentObj){
     console.log('addStudentToDom triggered!');
-    var deleteButton = $('<button>').addClass('btn btn-danger').text('Delete'); //delete button
+    var deleteButton =  $('<td>').append($('<button>').addClass('btn btn-danger').text('Delete')); //delete button
     $(deleteButton).on('click', function(){ //when delete button is clicked...
         $(this).closest("tr").remove(); //remove the entire row..
-
+        console.log(student_array);
     });
     var studentRow = $('<tr>');
     var tableData;
