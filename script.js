@@ -133,24 +133,12 @@ function resetApplication(){
     $('tbody').empty();
     student_array = [];
 }
-/*function deleteStudent(){
-    console.log("deleteStudent is triggered", this);
-    $(this).closest("tr").remove();
-}*/
 /**
  * Listen for the document to load and reset the data to the initial state
  */
 
 $(document).ready(function(){
     console.log('jquery is fine!');
-    /*$('.btn-danger').on('click', function(){
-        $(this).closest("tr").remove();
-    });*/
-    /*$('#cancelButton').on('click', cancelClick);*/
-    /*$('.btn-default').on('click', function(){
-        console.log('cancel button is clicked!');
-        /!*$('#studentName').val('');*!/
-    });*/
 });
 
 /*Function highlight_student()

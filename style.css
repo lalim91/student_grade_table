@@ -1,24 +1,21 @@
-/*
-h3{
+.input-group{
+    position: relative;
+}
+.autoComplete{
+    background-color: white;
+    list-style-type: none;
+    position: absolute;
+    top: 37px;
+    display: none;
+    padding-left: 15px;
+    width: 100%;
+    border: 1px solid lightgray;
+    width: 293px;
+    z-index: 100;
+}
+.dropDownHidden{
     display: none;
 }
-.avgGrade {
-    background-color:gray;
-    color:white;
-    padding:10px;
-    font-size: 75%;
-    border-radius: 25%;
-
-
+.dropDownShow{
+    display: block;
 }
-.form-control{
-    width: 100%;
-}
-@media screen and (max-width: 667px) {
-    h3{
-        display: block;
-    }
-    h1{
-        display: none;
-    }
-}*/
