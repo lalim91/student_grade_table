@@ -42,6 +42,7 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
        DOMposition:null,
+       highlight:null,
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
@@ -78,7 +79,7 @@ function calculateAverage(student_array){
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
-    updateStudentList();
+    addStudentToDom(student_array[student_array.length-1]);
     calculateAverage(student_array);
 }
 /**ß
@@ -156,5 +157,7 @@ $(document).ready(function(){
 this function will highlight the student with the highest grade in green, and the student with the lowest grade in red
  */
 function highlight_student(){
+    if(student_array.length==1){
 
+    }
 }
