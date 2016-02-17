@@ -43,10 +43,7 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
-
-
 }
-
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
@@ -67,8 +64,6 @@ function calculateAverage(student_array){
 
     $('.avgGrade').text((sum/student_array.length).toFixed(0));
     console.log((sum/student_array.length).toFixed(0));
-
-
 }
 /**
  * updateData - centralized function to update the average and call student list update
@@ -96,9 +91,10 @@ function updateStudentList(){
 
 function addStudentToDom(studentObj){
     console.log('addStudentToDom triggered!');
-    var deleteButton = $('<button>').addClass('btn btn-danger').text('Delete'); //delete button
+    var deleteButton =  $('<td>').append($('<button>').addClass('btn btn-danger').text('Delete')); //delete button
     $(deleteButton).on('click', function(){ //when delete button is clicked...
         $(this).closest("tr").remove(); //remove the entire row..
+        console.log(student_array);
     });
     var studentRow = $('<tr>');
     var tableData;
