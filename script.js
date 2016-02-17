@@ -43,16 +43,55 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
        DOMposition:null,
+       highlight_high:null,
+       highlight_low:null,
+       highlight_highest_check:function(){
+           console.log('highlight high recieved');
+           for (var i=0;i<student_array.length-1;i++){
+               if(this.grade>=student_array[i].grade){
+                   student_array[i].highlight_high='none';
+                   this.highlight_high = 'highest';
+               } else{
+                   this.highlight_high = 'none';
+               }
+           }
+           for (var i=0;i<student_array.length;i++){
+               if(student_array[i].highlight_high == 'highest'){
+                   student_array[i].DOMposition.css('background-color','green');
+           }else{
+                   student_array[i].DOMposition.css('background-color','inherit');
+               }
+           }
+       },
+       highlight_lowest_check:function(){
+           console.log('highlight lowest recieved');
+           for (var i=0;i<student_array.length;i++){
+               if(this.grade<=student_array[i].grade){
+                   student_array[i].highlight_low='none';
+                   this.highlight_low="lowest";
+               }else{
+                   this.highlight_low = 'none';
+               }
+           }
+           for (var i=0;i<student_array.length-1;i++){
+               if(student_array[i].highlight_low == 'lowest'){
+                   student_array[i].DOMposition.css('background-color','red');
+               }else{
+                   student_array[i].DOMposition.css('background-color','inherit');
+               }
+           }
+       },
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
            student_array.splice(this.arrayIndex,1);
+           changeIndex(this.arrayIndex);
        },
 
    };
     student_array.push(student_object);
     console.log(student_array);
-    highlight_student();
+
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -61,6 +100,15 @@ function clearAddStudentForm(){
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
+}
+
+
+
+function changeIndex(index){
+
+    for(index; index < student_array.length; index++){
+        student_array[index].arrayIndex -= 1;
+    }
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
@@ -79,7 +127,7 @@ function calculateAverage(student_array){
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
-    updateStudentList();
+    addStudentToDom(student_array[student_array.length-1]);
     calculateAverage(student_array);
 }
 /**ß
@@ -122,6 +170,9 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
+    studentObj.highlight_highest_check();
+    studentObj.highlight_lowest_check();
+    console.log('highlight fired');
 
 }
 /**
@@ -140,10 +191,3 @@ function resetApplication(){
 $(document).ready(function(){
     console.log('jquery is fine!');
 });
-
-/*Function highlight_student()
-this function will highlight the student with the highest grade in green, and the student with the lowest grade in red
- */
-function highlight_student(){
-
-}
