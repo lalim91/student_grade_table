@@ -36,13 +36,22 @@ function cancelClick() {
  * @return undefined
  */
 function addStudent(){
+    var arrayIndex= student_array.length;
    var student_object = {
        name:$('#studentName').val(),
        course:$('#course').val(),
-       grade:$('#studentGrade').val()
+       grade:$('#studentGrade').val(),
+       DOMposition:null,
+       arrayIndex: arrayIndex,
+       self_delete: function(){
+           this.DOMposition.remove();
+           student_array.splice(this.arrayIndex,1);
+       },
+
    };
     student_array.push(student_object);
     console.log(student_array);
+    highlight_student();
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -90,20 +99,29 @@ function updateStudentList(){
 
 
 function addStudentToDom(studentObj){
-    console.log('addStudentToDom triggered!');
-    var deleteButton =  $('<td>').append($('<button>').addClass('btn btn-danger').text('Delete')); //delete button
-    $(deleteButton).on('click', function(){ //when delete button is clicked...
-        $(this).closest("tr").remove(); //remove the entire row..
-        console.log(student_array);
-    });
     var studentRow = $('<tr>');
-    var tableData;
-    //for each value inside object, append it to the th element
-    for(i in studentObj){
-        tableData = $('<td>').append(studentObj[i]);
-        studentRow.append(tableData, deleteButton);
-    }
+    var studentName = $('<td>', {
+        text: studentObj.name
+    });
+    var studentCourse = $('<td>',{
+        text:studentObj.course
+    });
+    var studentGrade = $('<td>',{
+        text:studentObj.grade
+    });
+    var deleteButton = $('<button>',{
+        class:"btn btn-danger",
+        text:"Delete"
+    });
+    deleteButton.on('click',function(){
+        //studentObj.element.remove();
+        studentObj.self_delete();
+        console.log('my element is ',studentObj);
+    });
     $('tbody').append(studentRow);
+    studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
+    studentObj.DOMposition = studentRow;
+
 }
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
@@ -134,3 +152,9 @@ $(document).ready(function(){
     });*/
 });
 
+/*Function highlight_student()
+this function will highlight the student with the highest grade in green, and the student with the lowest grade in red
+ */
+function highlight_student(){
+
+}
