@@ -170,6 +170,9 @@ function find_highest(){
             }
         }
     highlight_highest();
+    if (student_array.length == 2){ //this part of the function fixes a highlight bug, since the first entry is both highest and lowest
+        highlight_lowest();
+    }
 }
 
 function find_lowest(){
