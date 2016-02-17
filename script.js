@@ -84,6 +84,7 @@ function addStudent(){
        self_delete: function(){
            this.DOMposition.remove();
            student_array.splice(this.arrayIndex,1);
+           changeIndex(this.arrayIndex);
        },
 
    };
@@ -98,6 +99,15 @@ function clearAddStudentForm(){
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
+}
+
+
+
+function changeIndex(index){
+
+    for(index; index < student_array.length; index++){
+        student_array[index].arrayIndex -= 1;
+    }
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
