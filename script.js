@@ -2,7 +2,8 @@
  * Define all global variables here
  */
 /**/
-var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
+//var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
+var student_array = [];
 //- global array to hold student objects
 // /* @type {Array}
 // */
@@ -17,8 +18,9 @@ var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", cour
  */
 function addClick() {
     addStudent();
-    updateData();
     clearAddStudentForm();
+    //updateData();
+
     console.log('add button is clicked!');
 }
 
@@ -39,10 +41,9 @@ function addStudent(){
        course:$('#course').val(),
        grade:$('#studentGrade').val()
    };
-    student_object.operations = $('<button>').addClass('btn btn-danger').text('Delete');
     student_array.push(student_object);
     console.log(student_array);
-    updateData();
+    //updateData();
     addStudentToDom(student_object);
 }
 
@@ -50,11 +51,10 @@ function addStudent(){
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
 function clearAddStudentForm(){
-    console.log('cancel button is clicked!');
     $('#studentName').val("");
     $('#course').val("");
     $('#studentGrade').val("");
-    updateData();
+    //updateData();
 }
 /**
  * calculateAverage - loop through the global student array and calculate average grade and return that value
@@ -67,8 +67,7 @@ function calculateAverage(student_array){
             sum += student_array[s][i].grade;
         }
     }
-
-    return (sum/students.length).toFixed(1);
+    return (sum/student_array.length).toFixed(1);
 }
 /**
  * updateData - centralized function to update the average and call student list update
@@ -95,15 +94,18 @@ function updateStudentList(){
 
 function addStudentToDom(studentObj){
     console.log('addStudentToDom triggered!');
+    var deleteButton = $('<button>').addClass('btn btn-danger').text('Delete'); //delete button
+    $(deleteButton).on('click', function(){ //when delete button is clicked...
+        $(this).closest("tr").remove(); //remove the entire row..
+    });
     var studentRow = $('<tr>');
-    var tableheader;
+    var tableData;
     //for each value inside object, append it to the th element
     for(i in studentObj){
-        tableheader = $('<th>').append(studentObj[i]);
-        studentRow.append(tableheader);
+        tableData = $('<td>').append(studentObj[i]);
+        studentRow.append(tableData, deleteButton);
     }
     $('tbody').append(studentRow);
-    console.log(studentRow);
 }
 /**
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
@@ -114,17 +116,19 @@ function resetApplication(){
     $('tbody').empty();
     student_array = [];
 }
-function deleteStudent(){
+/*function deleteStudent(){
     console.log("deleteStudent is triggered", this);
     $(this).closest("tr").remove();
-}
+}*/
 /**
  * Listen for the document to load and reset the data to the initial state
  */
 
 $(document).ready(function(){
     console.log('jquery is fine!');
-    $('.btn-danger').on('click', deleteStudent);
+    /*$('.btn-danger').on('click', function(){
+        $(this).closest("tr").remove();
+    });*/
     /*$('#cancelButton').on('click', cancelClick);*/
     /*$('.btn-default').on('click', function(){
         console.log('cancel button is clicked!');
