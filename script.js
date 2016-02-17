@@ -43,6 +43,7 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
+    calculateAverage(student_array);
     //updateData();
     addStudentToDom(student_object);
 }
@@ -63,10 +64,11 @@ function clearAddStudentForm(){
 function calculateAverage(student_array){
     var sum = 0;
     for(var s= 0; s<student_array.length; s++){
-        sum += student_array[s].grade;
+        sum += parseInt(student_array[s].grade);
     }
 
-    $('#avgGrade').append(sum/student_array.length).toFixed(1);
+    $('.avgGrade').text((sum/student_array.length).toFixed(0));
+    console.log((sum/student_array.length).toFixed(0));
 
 
 }
@@ -75,7 +77,7 @@ function calculateAverage(student_array){
  */
 function updateData(){
     updateStudentList();
-    //calculateAverage(student_array);
+    calculateAverage(student_array);
 }
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
