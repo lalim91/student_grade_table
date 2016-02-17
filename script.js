@@ -43,6 +43,19 @@ function addStudent(){
        grade:$('#studentGrade').val(),
        DOMposition:null,
        highlight:null,
+       highlight_highest_check:function(){
+           console.log('highlight recieved');
+           for (var i=0;i<=student_array.length;i++){
+               if(this.grade>student_array[i].grade){
+                   this.highlight = 'highlight'
+               } else{
+                   this.highlight = none;
+               }
+
+           }
+
+
+       },
        arrayIndex: arrayIndex,
        self_delete: function(){
            this.DOMposition.remove();
@@ -52,7 +65,7 @@ function addStudent(){
    };
     student_array.push(student_object);
     console.log(student_array);
-    highlight_student();
+
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -122,6 +135,8 @@ function addStudentToDom(studentObj){
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
+    studentObj.highlight_highest_check();
+    console.log('highlight fired');
 
 }
 /**
@@ -153,11 +168,3 @@ $(document).ready(function(){
     });*/
 });
 
-/*Function highlight_student()
-this function will highlight the student with the highest grade in green, and the student with the lowest grade in red
- */
-function highlight_student(){
-    if(student_array.length==1){
-
-    }
-}
