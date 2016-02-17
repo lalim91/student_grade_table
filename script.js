@@ -64,8 +64,6 @@ function calculateAverage(student_array){
 
     $('.avgGrade').text((sum/student_array.length).toFixed(0));
     console.log((sum/student_array.length).toFixed(0));
-
-
 }
 /**
  * updateData - centralized function to update the average and call student list update
