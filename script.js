@@ -53,8 +53,11 @@ function addStudent(){
            this.DOMposition.remove();
            student_array.splice(this.arrayIndex,1);
            changeIndex(this.arrayIndex);
-           find_lowest();
-           find_highest();
+           console.log('new highest fired');
+           console.log('new lowest fired');
+           new_lowest();
+           new_highest();
+
        },
 
    };
@@ -230,4 +233,26 @@ function highlight_highest(){
 }
 function highlight_lowest(){
     lowest.DOMposition.css('background-color','red');
+}
+
+function new_highest(){
+    console.log('new highest recieved');
+    highest = student_array[0];
+    for (var i = 1; i < student_array.length; i++) {
+        if (Number(student_array[i].grade) > Number(highest.grade)) {
+            highest = student_array[i];
+        }
+    }
+    highlight_highest();
+}
+
+function new_lowest(){
+    console.log('new lowest recieved');
+    lowest = student_array[0];
+    for (var i = 1; i < student_array.length; i++) {
+        if (Number(student_array[i].grade) < Number(lowest.grade)) {
+            lowest = student_array[i];
+        }
+    }
+    highlight_lowest();
 }
