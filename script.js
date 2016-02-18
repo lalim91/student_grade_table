@@ -26,6 +26,8 @@ function addClick() {
     clearAddStudentForm();
     updateData();
     console.log('add button is clicked!');
+    var empty_message = $('.empty');
+        empty_message.remove();
 }
 
 /**
@@ -105,9 +107,22 @@ function updateData(){
  */
 function updateStudentList(){
     $('.student-list-container>.student-list>tbody>tr').remove();
-    for (var i = 0; i<student_array.length; i++){
-        addStudentToDom(student_array[i]);
+    var empty_student_display = $('<td>',{
+        class:'empty',
+        colspan:2
+    });
+    var empty_display = $('<h4>',{
+        text:"User Info Unavailable",
+    });
+    if (student_array.length == 0){
+        $('.student-list tbody').append(empty_student_display);
+        empty_student_display.append(empty_display);
+    }else{
+        for (var i = 0; i<student_array.length; i++){
+            addStudentToDom(student_array[i]);
+        }
     }
+
     //addStudentToDom(student_array[student_array.length-1]);
 }
 /**
@@ -150,10 +165,9 @@ function addStudentToDom(studentObj){
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
 function resetApplication(){
-    clearAddStudentForm();
-    console.log('student array: ', student_array);
-    $('tbody').empty();
     student_array = [];
+    updateStudentList();
+    updateData();
 }
 function autoComplete(){ console.log("autocomplete() is invoked!");
     var courseListKeys = Object.keys(courseList); //stores courseList keys into array of strings
@@ -180,6 +194,7 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
  * Listen for the document to load and reset the data to the initial state
  */
 $(document).ready(function(){
+    resetApplication();
     console.log('jquery is fine!');
     $('#course').on('keyup', function(){
         courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
