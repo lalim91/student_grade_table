@@ -86,7 +86,11 @@ function changeIndex(index){
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
-function calculateAverage(student_array){
+function calculateAverage(){
+    if (student_array.length == 0){
+        $('.avgGrade').text('0');
+        return;
+    }
     var sum = 0;
     for(var s= 0; s<student_array.length; s++){
         sum += parseInt(student_array[s].grade);
@@ -99,8 +103,11 @@ function calculateAverage(student_array){
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
-    addStudentToDom(student_array[student_array.length-1]);
-    calculateAverage(student_array);
+    calculateAverage();
+    if(student_array.length != 0){
+        addStudentToDom(student_array[student_array.length-1]);
+    }
+
 }
 /**ß
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
