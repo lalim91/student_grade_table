@@ -8,11 +8,13 @@ var courseInput = "stfu"; //initialized for now.
 var highest;
 var lowest;
 var student_array = [];
-var courseList = {
-    'mathematics': null,
-    'material science': null,
-    'art science': null,
-}
+//var courseList = {
+//    'mathematics': null,
+//    'material science': null,
+//    'art science': null,
+//}
+var courseList = {};
+
 /**
  * inputIds - id's of the elements that are used to add students
  * @type {string[]}
@@ -57,8 +59,13 @@ function addStudent(){
 
    };
     student_array.push(student_object);
+    addCouseName(student_object.course);
     console.log(student_array);
 
+}
+
+function addCouseName(courseName){
+    courseList[courseName] = 1;
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
