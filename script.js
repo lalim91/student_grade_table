@@ -26,6 +26,8 @@ function addClick() {
     clearAddStudentForm();
     updateData();
     console.log('add button is clicked!');
+    var empty_message = $('.empty');
+        empty_message.remove();
 }
 
 /**
@@ -84,7 +86,11 @@ function changeIndex(index){
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
-function calculateAverage(student_array){
+function calculateAverage(){
+    if (student_array.length == 0){
+        $('.avgGrade').text('0');
+        return;
+    }
     var sum = 0;
     for(var s= 0; s<student_array.length; s++){
         sum += parseInt(student_array[s].grade);
@@ -97,17 +103,33 @@ function calculateAverage(student_array){
  * updateData - centralized function to update the average and call student list update
  */
 function updateData(){
-    addStudentToDom(student_array[student_array.length-1]);
-    calculateAverage(student_array);
+    calculateAverage();
+    if(student_array.length != 0){
+        addStudentToDom(student_array[student_array.length-1]);
+    }
+
 }
 /**ß
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
 function updateStudentList(){
     $('.student-list-container>.student-list>tbody>tr').remove();
-    for (var i = 0; i<student_array.length; i++){
-        addStudentToDom(student_array[i]);
+    var empty_student_display = $('<td>',{
+        class:'empty',
+        colspan:2
+    });
+    var empty_display = $('<h4>',{
+        text:"User Info Unavailable",
+    });
+    if (student_array.length == 0){
+        $('.student-list tbody').append(empty_student_display);
+        empty_student_display.append(empty_display);
+    }else{
+        for (var i = 0; i<student_array.length; i++){
+            addStudentToDom(student_array[i]);
+        }
     }
+
     //addStudentToDom(student_array[student_array.length-1]);
 }
 /**
@@ -150,10 +172,9 @@ function addStudentToDom(studentObj){
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
 function resetApplication(){
-    clearAddStudentForm();
-    console.log('student array: ', student_array);
-    $('tbody').empty();
     student_array = [];
+    updateStudentList();
+    updateData();
 }
 function autoComplete(){ console.log("autocomplete() is invoked!");
     var courseListKeys = Object.keys(courseList); //stores courseList keys into array of strings
@@ -180,6 +201,7 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
  * Listen for the document to load and reset the data to the initial state
  */
 $(document).ready(function(){
+    resetApplication();
     console.log('jquery is fine!');
     $('#course').on('keyup', function(){
         courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
