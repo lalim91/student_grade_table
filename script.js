@@ -170,7 +170,11 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
 
     for(var i in courseListKeys){
         //$('#courseDropDown').empty();
-        if(courseListKeys[i].substring(0, courseInput.length) == courseInput){
+        if(courseInput.length < 2){
+            $(".dropDownShow").remove();
+            $("#courseDropDown").hide();
+        }
+        if(courseListKeys[i].substring(0,2) == courseInput.substring(0,2)){
             //if all characters are equal thus far...
             var lists = $('<li>',{
                 class:"dropDownShow",
