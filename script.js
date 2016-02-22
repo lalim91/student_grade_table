@@ -184,34 +184,62 @@ function resetApplication(){
     updateStudentList();
     updateData();
 }
-function autoComplete(){ console.log("autocomplete() is invoked!");
+
+function autoComplete() {
+    console.log("autocomplete() is invoked!");
     var courseListKeys = Object.keys(courseList); //stores courseList keys into array of strings
     console.log('the list of courses ', courseListKeys);
     //console.log('testing the substring: ', courseListKeys[0].substring(0, courseInput.length));
     console.log('user input in course ', courseInput);
 
-    for(var i in courseListKeys){
-        //var check = true;
-        //$('#courseDropDown').empty();
-        if(courseInput.length < 2){
-            $(".dropDownShow").remove();
-            $("#courseDropDown").hide();
-        }
-        if(courseListKeys[i].substring(0,2) == courseInput.substring(0,2)){
+    $(".dropDownShow").remove();
+    for (var i = 0; i <= courseListKeys.length; i++) {
+        //if (courseInput.length < 2) {
+        //    $(".dropDownShow").remove();
+        //    $("#courseDropDown").hide();
+        //}
+        if (courseListKeys[i].substring(0, 2) == courseInput.substring(0, 2)) {
             //if all characters are equal thus far...
             //if($('#courseDropDown').children().length <= 0){
-            //if($("#courseDropDown").children().length < courseListKeys.length){
                 var lists = $('<li>', {
                     class: "dropDownShow",
                     text: courseListKeys[i]
                 });
                 ////append the text of courseListKeys to the <li>
                 $('#courseDropDown').append(lists).css('display', 'block');
-                courseListKeys.splice(i,1);
+                courseListKeys.splice(i, 1);
+                i = 0;
                 //////append the <li> to #courseDropDown
-            }
-       // }
+
+            //  courseListKeys.splice(i,1);
+        }
     }
+
+
+    //for(var i in courseListKeys){
+    //    //var check = true;
+    //    //$('#courseDropDown').empty();
+    //    if(courseInput.length < 2){
+    //        $(".dropDownShow").remove();
+    //        $("#courseDropDown").hide();
+    //    }
+    //    if(courseListKeys[i].substring(0,2) == courseInput.substring(0,2)){
+    //        //if all characters are equal thus far...
+    //        //if($('#courseDropDown').children().length <= 0){
+    //        if($("#courseDropDown").children().length < courseListKeys.length){
+    //            var lists = $('<li>', {
+    //                class: "dropDownShow",
+    //                text: courseListKeys[i]
+    //            });
+    //            ////append the text of courseListKeys to the <li>
+    //            $('#courseDropDown').append(lists).css('display', 'block');
+    //            courseListKeys.splice(i,1);
+    //            //////append the <li> to #courseDropDown
+    //        }
+    //      //  courseListKeys.splice(i,1);
+    //    }
+    //    //courseListKeys.splice(i,1);
+    //}
             //var lists = $('<li>', {
             //    class: "dropDownShow",
             //    text: courseListKeys[i]
@@ -231,13 +259,22 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
 /**
  * Listen for the document to load and reset the data to the initial state
  */
+
+var timer = null;
+
 $(document).ready(function(){
     resetApplication();
     console.log('jquery is fine!');
-    $(".dropDownShow").remove();
+    //$(".dropDownShow").remove();
     $('#course').on('keyup', function(){
         courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
-        autoComplete(); //invoke autoComplete function
+        if (timer != null) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(function() {
+            autoComplete(); //invoke autoComplete function
+        }, 500);
+
         //console.log(courseInput);//consolelog everytime a key is pressed
     });
 });
