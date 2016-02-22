@@ -30,6 +30,7 @@ function addClick() {
     console.log('add button is clicked!');
     var empty_message = $('.empty');
         empty_message.remove();
+    $(".dropDownShow").remove();
 }
 
 /**
@@ -190,6 +191,7 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
     console.log('user input in course ', courseInput);
 
     for(var i in courseListKeys){
+        //var check = true;
         //$('#courseDropDown').empty();
         if(courseInput.length < 2){
             $(".dropDownShow").remove();
@@ -197,23 +199,42 @@ function autoComplete(){ console.log("autocomplete() is invoked!");
         }
         if(courseListKeys[i].substring(0,2) == courseInput.substring(0,2)){
             //if all characters are equal thus far...
-            var lists = $('<li>',{
-                class:"dropDownShow",
-                text:courseListKeys[i]
-            });
-            ////append the text of courseListKeys to the <li>
+            //if($('#courseDropDown').children().length <= 0){
+            //if($("#courseDropDown").children().length < courseListKeys.length){
+                var lists = $('<li>', {
+                    class: "dropDownShow",
+                    text: courseListKeys[i]
+                });
+                ////append the text of courseListKeys to the <li>
+                $('#courseDropDown').append(lists).css('display', 'block');
+                courseListKeys.splice(i,1);
+                //////append the <li> to #courseDropDown
+            }
+       // }
+    }
+            //var lists = $('<li>', {
+            //    class: "dropDownShow",
+            //    text: courseListKeys[i]
+            //});
+            //////append the text of courseListKeys to the <li>
+            //
+            //$('#courseDropDown').append(lists).css('display', 'block');
+            ////////append the <li> to #courseDropDown
 
-            $('#courseDropDown').append(lists).css('display', 'block');
-            //////append the <li> to #courseDropDown
-        }
+
+
+
+
+       // }
     }//END for(var i in courseListKeys)
-}
+
 /**
  * Listen for the document to load and reset the data to the initial state
  */
 $(document).ready(function(){
     resetApplication();
     console.log('jquery is fine!');
+    $(".dropDownShow").remove();
     $('#course').on('keyup', function(){
         courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
         autoComplete(); //invoke autoComplete function
