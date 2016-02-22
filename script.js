@@ -271,3 +271,21 @@ function new_lowest(){
     }
     highlight_lowest();
 }
+
+function getServerData(){
+    $.ajax({
+        dataType: 'json',
+        data:{
+            api_key:'LEARNING'
+        },
+        method:'POST',
+        cache: false,
+        url: 'http://s-apis.learningfuze.com/sgt/get',
+        success: function (response) {
+            console.log('AJAX Success function called, with the following result:', response);
+        },
+        error: function (response) {
+            console.log("error message");
+        }
+    });
+}
