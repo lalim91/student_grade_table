@@ -8,11 +8,13 @@ var courseInput = "stfu"; //initialized for now.
 var highest;
 var lowest;
 var student_array = [];
-var courseList = {
-    'mathematics': null,
-    'material science': null,
-    'art science': null,
-}
+//var courseList = {
+//    'mathematics': null,
+//    'material science': null,
+//    'art science': null,
+//}
+var courseList = {};
+
 /**
  * inputIds - id's of the elements that are used to add students
  * @type {string[]}
@@ -28,6 +30,7 @@ function addClick() {
     console.log('add button is clicked!');
     var empty_message = $('.empty');
         empty_message.remove();
+    $(".dropDownShow").remove();
 }
 
 /**
@@ -62,8 +65,13 @@ function addStudent(){
 
    };
     student_array.push(student_object);
+    addCouseName(student_object.course);
     console.log(student_array);
 
+}
+
+function addCouseName(courseName){
+    courseList[courseName] = 1;
 }
 /**
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -176,39 +184,72 @@ function resetApplication(){
     updateStudentList();
     updateData();
 }
-function autoComplete(){ console.log("autocomplete() is invoked!");
+
+// autoComplete
+// @params: none
+// @global: courseList, courseInput
+// @return: none
+// This function creates the auto complete for a when a user enters a class that was previously stored allowing the user
+// to not have to type out the whole class name
+
+function autoComplete() {
+    console.log("autocomplete() is invoked!");
     var courseListKeys = Object.keys(courseList); //stores courseList keys into array of strings
     console.log('the list of courses ', courseListKeys);
     //console.log('testing the substring: ', courseListKeys[0].substring(0, courseInput.length));
     console.log('user input in course ', courseInput);
 
-    for(var i in courseListKeys){
-        //$('#courseDropDown').empty();
-        if(courseListKeys[i].substring(0, courseInput.length) == courseInput){
-            //if all characters are equal thus far...
-            var lists = $('<li>',{
-                class:"dropDownShow",
-                text:courseListKeys[i]
+    $(".dropDownShow").remove(); // removes any previous drop downs
+    if(courseListKeys.length <= 0){ // if courseList is empty just return
+        return;
+    }
+    for (var i = 0; i < courseListKeys.length; i++) {
+        if (courseListKeys[i].substring(0, 2) == courseInput.substring(0, 2)){ // if the first two letters are matching in courseInput and courselist[i]
+            var lists = $('<li>', {
+                class: "dropDownShow",
+                text: courseListKeys[i]
             });
             ////append the text of courseListKeys to the <li>
-
             $('#courseDropDown').append(lists).css('display', 'block');
-            //////append the <li> to #courseDropDown
+            courseListKeys.splice(i, 1);
+            i = -1; //set index to -1 so we can start on 0 for the next iteration
         }
-    }//END for(var i in courseListKeys)
-}
+    }
+    $(".dropDownShow").on("click",function(){
+        automaticText($(this).text()); // calls function to change the value
+        $(".dropDownShow").remove();
+    });
+
+}//END of function
+
 /**
  * Listen for the document to load and reset the data to the initial state
  */
+
+var timer = null;
+
 $(document).ready(function(){
     resetApplication();
     console.log('jquery is fine!');
     $('#course').on('keyup', function(){
         courseInput = $(this).val().toLowerCase(); //toLowerCase for case-insensitivity
-        autoComplete(); //invoke autoComplete function
-        //console.log(courseInput);//consolelog everytime a key is pressed
+        if (timer != null) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(function() {
+            autoComplete(); //invoke autoComplete function
+        }, 500);
     });
 });
+
+/* function:automaticText*/
+// @params: value
+// @globals: none
+// @return: none
+// This function sets the value of the form to be whatever you clicked in the dropDown
+function automaticText(value){
+    $("#course").val(value);
+}
 
 function find_highest(){
     console.log('highest recieved');
