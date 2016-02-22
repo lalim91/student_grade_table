@@ -193,10 +193,16 @@ function autoComplete() {
     console.log('user input in course ', courseInput);
 
     $(".dropDownShow").remove();
-    for (var i = 0; i <= courseListKeys.length; i++) {
+    if(courseListKeys.length <= 0){
+        return;
+    }
+    for (var i = 0; i < courseListKeys.length; i++) {
         //if (courseInput.length < 2) {
         //    $(".dropDownShow").remove();
         //    $("#courseDropDown").hide();
+        //}
+        //if(courseListKeys.length == 1){
+        //    i = 0;
         //}
         if (courseListKeys[i].substring(0, 2) == courseInput.substring(0, 2)) {
             //if all characters are equal thus far...
@@ -208,12 +214,17 @@ function autoComplete() {
                 ////append the text of courseListKeys to the <li>
                 $('#courseDropDown').append(lists).css('display', 'block');
                 courseListKeys.splice(i, 1);
-                i = 0;
+            i = -1;
+
                 //////append the <li> to #courseDropDown
 
             //  courseListKeys.splice(i,1);
         }
     }
+    $(".dropDownShow").on("click",function(){
+        automaticText($(this).text());
+        $(".dropDownShow").remove();
+    });
 
 
     //for(var i in courseListKeys){
@@ -275,9 +286,17 @@ $(document).ready(function(){
             autoComplete(); //invoke autoComplete function
         }, 500);
 
+
+
         //console.log(courseInput);//consolelog everytime a key is pressed
     });
+
+
 });
+
+function automaticText(value){
+    $("#course").val(value);
+}
 
 function find_highest(){
     console.log('highest recieved');
