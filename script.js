@@ -62,7 +62,7 @@ function addStudent(){
            new_lowest();
            new_highest();
 
-       },
+       }
 
    };
     student_array.push(student_object);
@@ -313,27 +313,62 @@ function new_lowest(){
     }
     highlight_lowest();
 }
-
-function getServerData(){
+function getStudentServerData(){
     $.ajax({
-        dataType: 'json',
+        dataType:'json',
+        url:'http://s-apis.learningfuze.com/sgt/get',
         data:{
             api_key:'LEARNING'
         },
-        method:'POST',
-        cache: false,
-        url: 'http://s-apis.learningfuze.com/sgt/get',
-        success: function (response) {
-            console.log('AJAX Success function called, with the following result:', response);
-            ajaxSuccess=response.data;
-            for (var i=0;i<ajaxSuccess.length;i++){
-                student_array.push(ajaxSuccess[i]);
+        method:'post',
+        cache:'false',
+        success:function(response){
+            console.log('success function called' +response);
+            for(var i = 0; i < response.data.length; i++){
+                student_array.push(response.data[i]);
+                response.data[i].DOMposition=null;
+                    response.data[i].arrayIndex=student_array.length;
+                response.data[i].self_delete = function(){
+                    this.DOMposition.remove();
+                    student_array.splice(this.arrayIndex,1);
+                    changeIndex(this.arrayIndex);
+                    console.log('new highest fired');
+                    console.log('new lowest fired');
+                    new_lowest();
+                    new_highest();
+
+                }
+
             }
             updateStudentList();
 
         },
-        error: function (response) {
-            console.log("error message");
+        error: function(response){
+            console.log ('There is an error!')
         }
     });
 }
+
+//function getServerData(){
+//    $.ajax({
+//        dataType: 'json',
+//        data:{
+//            api_key:'LEARNING'
+//        },
+//        method:'POST',
+//        cache: false,
+//        url: 'http://s-apis.learningfuze.com/sgt/get',
+//        success: function (response) {
+//            console.log('AJAX Success function called, with the following result:', response);
+//            ajaxSuccess=response.data;
+//            for (var i=0;i<ajaxSuccess.length;i++){
+//                student_array.push(ajaxSuccess[i]);
+//            }
+//            updateStudentList();
+//
+//        },
+//        error: function (response) {
+//            console.log("error message");
+//        }
+//    });
+//}
