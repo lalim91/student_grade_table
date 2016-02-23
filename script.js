@@ -28,6 +28,7 @@ function addClick() {
     addStudent();
     clearAddStudentForm();
     updateData();
+    highlightGrade(student_array);
     console.log('add button is clicked!');
     var empty_message = $('.empty');
         empty_message.remove();
@@ -128,7 +129,7 @@ function updateStudentList(){
         colspan:2
     });
     var empty_display = $('<h4>',{
-        text:"User Info Unavailable",
+        text:"User Info Unavailable"
     });
     if (student_array.length == 0){
         $('.student-list tbody').append(empty_student_display);
@@ -166,6 +167,7 @@ function addStudentToDom(studentObj){
     deleteButton.on('click',function(){
         //studentObj.element.remove();
         studentObj.self_delete();
+        highlightGrade(student_array);
         console.log('my element is ',studentObj);
     });
     $('tbody').append(studentRow);
@@ -251,68 +253,97 @@ $(document).ready(function(){
 function automaticText(value){
     $("#course").val(value);
 }
-
-function find_highest(){
-    console.log('highest recieved');
-        if(student_array.length == 1){
-            highest = student_array[0]
-        }else {
-            if(Number(highest.grade) < Number(student_array[student_array.length-1].grade)){
-                unhighlight(highest);
-                highest = student_array[student_array.length-1];
+function highlightGrade(array) {
+    var highestGrade = parseInt(array[0].grade);
+    var lowestGrade = parseInt(array[0].grade);
+    if (student_array.length >= 2) {
+        for (var i = 0; i < student_array.length; i++) {
+            if (parseInt(student_array[i].grade) === highestGrade) {
+                student_array[i].DOMposition.addClass('bg-success');
             }
-        }
-    highlight_highest();
-    if (student_array.length == 2){ //this part of the function fixes a highlight bug, since the first entry is both highest and lowest
-        highlight_lowest();
-    }
-}
-
-function find_lowest(){
-    console.log('lowest recieved');
-        if(student_array.length == 1){
-            lowest = student_array[0]
-        }else {
-            if(Number(lowest.grade) > Number(student_array[student_array.length-1].grade)){
-                unhighlight(lowest);
-                lowest = student_array[student_array.length-1];
+            if (parseInt(student_array[i].grade) > highestGrade) {
+                highestGrade = parseInt(student_array[i].grade);
+                $('.bg-success').removeClass('bg-success');
+                student_array[i].DOMposition.addClass('bg-success');
             }
-        }
-    highlight_lowest();
-}
+            if (parseInt(student_array[i].grade) === lowestGrade) {
+                student_array[i].DOMposition.addClass('bg-danger');
+            }
+            if (parseInt(student_array[i].grade) < lowestGrade) {
+                lowestGrade = parseInt(student_array[i].grade);
+                $('.bg-danger').removeClass('bg-danger');
+                student_array[i].DOMposition.addClass('bg-danger');
+            }
 
-function unhighlight(highlighted){
-    highlighted.DOMposition.css('background-color','inherit');
-}
-
-function highlight_highest(){
-    highest.DOMposition.css('background-color','green');
-}
-function highlight_lowest(){
-    lowest.DOMposition.css('background-color','red');
-}
-
-function new_highest(){
-    console.log('new highest recieved');
-    highest = student_array[0];
-    for (var i = 1; i < student_array.length; i++) {
-        if (Number(student_array[i].grade) > Number(highest.grade)) {
-            highest = student_array[i];
         }
     }
-    highlight_highest();
-}
-
-function new_lowest(){
-    console.log('new lowest recieved');
-    lowest = student_array[0];
-    for (var i = 1; i < student_array.length; i++) {
-        if (Number(student_array[i].grade) < Number(lowest.grade)) {
-            lowest = student_array[i];
-        }
+    else{
+        $('.bg-danger').removeClass('bg-danger');
+        $('.bg-success').removeClass('bg-success');
     }
-    highlight_lowest();
+
 }
+//function find_highest(){
+//    console.log('highest recieved');
+//        if(student_array.length == 1){
+//            highest = student_array[0]
+//        }else {
+//            if(Number(highest.grade) < Number(student_array[student_array.length-1].grade)){
+//                unhighlight(highest);
+//                highest = student_array[student_array.length-1];
+//            }
+//        }
+//    highlight_highest();
+//    if (student_array.length == 2){ //this part of the function fixes a highlight bug, since the first entry is both highest and lowest
+//        highlight_lowest();
+//    }
+//}
+//
+//function find_lowest(){
+//    console.log('lowest recieved');
+//        if(student_array.length == 1){
+//            lowest = student_array[0]
+//        }else {
+//            if(Number(lowest.grade) > Number(student_array[student_array.length-1].grade)){
+//                unhighlight(lowest);
+//                lowest = student_array[student_array.length-1];
+//            }
+//        }
+//    highlight_lowest();
+//}
+//
+//function unhighlight(highlighted){
+//    highlighted.DOMposition.css('background-color','inherit');
+//}
+//
+//function highlight_highest(){
+//    highest.DOMposition.css('background-color','green');
+//}
+//function highlight_lowest(){
+//    lowest.DOMposition.css('background-color','red');
+//}
+//
+//function new_highest(){
+//    console.log('new highest received');
+//    highest = student_array[0];
+//    for (var i = 1; i < student_array.length; i++) {
+//        if (Number(student_array[i].grade) > Number(highest.grade)) {
+//            highest = student_array[i];
+//        }
+//    }
+//    highlight_highest();
+//}
+//
+//function new_lowest(){
+//    console.log('new lowest recieved');
+//    lowest = student_array[0];
+//    for (var i = 1; i < student_array.length; i++) {
+//        if (Number(student_array[i].grade) < Number(lowest.grade)) {
+//            lowest = student_array[i];
+//        }
+//    }
+//    highlight_lowest();
+//}
 function getStudentServerData(){
     $.ajax({
         dataType:'json',
@@ -334,8 +365,9 @@ function getStudentServerData(){
                     changeIndex(this.arrayIndex);
                     console.log('new highest fired');
                     console.log('new lowest fired');
-                    new_lowest();
-                    new_highest();
+                    highlightGrade(student_array);
+                    //new_lowest();
+                    //new_highest();
 
                 }
 
