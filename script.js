@@ -138,7 +138,7 @@ function updateStudentList(){
             addStudentToDom(student_array[i]);
         }
     }
-
+    updateData();
     //addStudentToDom(student_array[student_array.length-1]);
 }
 /**
