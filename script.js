@@ -8,6 +8,7 @@ var courseInput = "stfu"; //initialized for now.
 var highest;
 var lowest;
 var student_array = [];
+var ajaxSuccess;
 //var courseList = {
 //    'mathematics': null,
 //    'material science': null,
@@ -172,8 +173,8 @@ function addStudentToDom(studentObj){
     studentObj.DOMposition = studentRow;
     console.log('highest fired');
     console.log('lowest fired');
-    find_lowest();
-    find_highest();
+    //find_lowest();
+    //find_highest();
 
 }
 /**
@@ -324,6 +325,12 @@ function getServerData(){
         url: 'http://s-apis.learningfuze.com/sgt/get',
         success: function (response) {
             console.log('AJAX Success function called, with the following result:', response);
+            ajaxSuccess=response.data;
+            for (var i=0;i<ajaxSuccess.length;i++){
+                student_array.push(ajaxSuccess[i]);
+            }
+            updateStudentList();
+
         },
         error: function (response) {
             console.log("error message");
