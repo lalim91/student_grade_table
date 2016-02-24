@@ -65,12 +65,17 @@ function addStudent(){
 
        }
 
+
+
+
    };
     student_array.push(student_object);
     addCouseName(student_object.course);
     console.log(student_array);
 
 }
+
+
 
 function addCouseName(courseName){
     courseList[courseName] = 1;
@@ -243,6 +248,8 @@ $(document).ready(function(){
             autoComplete(); //invoke autoComplete function
         }, 500);
     });
+
+    getStudentServerData();
 });
 
 /* function:automaticText*/
