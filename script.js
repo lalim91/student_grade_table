@@ -3,17 +3,8 @@
  */
 /**/
 var courseInput = "stfu"; //initialized for now.
-
-//var student_array= [{name:"Harry", course:"Potions", grade:60},{name:"Ron", course:"Biology", grade:30},{name:"Hermione", course:"Writing", grade:98}];
-var highest;
-var lowest;
 var student_array = [];
 var ajaxSuccess;
-//var courseList = {
-//    'mathematics': null,
-//    'material science': null,
-//    'art science': null,
-//}
 var courseList = {};
 var result;
 /**
@@ -31,7 +22,7 @@ function addClick() {
     highlightGrade(student_array);
     console.log('add button is clicked!');
     var empty_message = $('.empty');
-        empty_message.remove();
+    empty_message.remove();
     $(".dropDownShow").remove();
     createStudentDB();
 }
@@ -50,22 +41,22 @@ function cancelClick() {
 function addStudent(){
     var arrayIndex= student_array.length;
     var student_object = {
-       name:$('#studentName').val(),
-       course:$('#course').val(),
-       grade:$('#studentGrade').val(),
+        name:$('#studentName').val(),
+        course:$('#course').val(),
+        grade:$('#studentGrade').val(),
         id: null,
-       DOMposition:null,
-       arrayIndex: arrayIndex,
-       self_delete: function(){
-           this.DOMposition.remove();
-           student_array.splice(this.arrayIndex,1);
-           changeIndex(this.arrayIndex);
-           //console.log('new highest fired');
-           //console.log('new lowest fired');
-           //new_lowest();
-           //new_highest();
+        DOMposition:null,
+        arrayIndex: arrayIndex,
+        self_delete: function(){
+            this.DOMposition.remove();
+            student_array.splice(this.arrayIndex,1);
+            changeIndex(this.arrayIndex);
+            //console.log('new highest fired');
+            //console.log('new lowest fired');
+            //new_lowest();
+            //new_highest();
 
-       }
+        }
     };
     student_array.push(student_object);
     addCourseName(student_object.course);
@@ -94,7 +85,7 @@ function createStudentDB(student){
 
         },
 
-})
+    })
 }
 
 
@@ -151,21 +142,11 @@ function updateData(){
  */
 function updateStudentList(){
     $('.student-list-container>.student-list>tbody>tr').remove();
-    var empty_student_display = $('<td>',{
-        class:'empty',
-        colspan:2
-    });
-    var empty_display = $('<h4>',{
-        text:"User Info Unavailable"
-    });
-    if (student_array.length == 0){
-        $('.student-list tbody').append(empty_student_display);
-        empty_student_display.append(empty_display);
-    }else{
-        for (var i = 0; i<student_array.length; i++){
-            addStudentToDom(student_array[i]);
-        }
+
+    for (var i = 0; i<student_array.length; i++){
+        addStudentToDom(student_array[i]);
     }
+
     updateData();
     //addStudentToDom(student_array[student_array.length-1]);
 }
@@ -272,7 +253,17 @@ $(document).ready(function(){
         }, 500);
     });
 
-    getStudentServerData();
+    //getStudentServerData();
+
+    $('#load').on('click', function(){
+        //getStudentServerData();
+            var $this = $(this);
+            $this.button('loading');
+            setTimeout(function() {
+                $this.button('reset');
+            }, 2000);
+    }
+        )
 });
 
 /* function:automaticText*/
@@ -283,6 +274,7 @@ $(document).ready(function(){
 function automaticText(value){
     $("#course").val(value);
 }
+
 function highlightGrade(array) {
     var highestGrade = parseInt(array[0].grade);
     var lowestGrade = parseInt(array[0].grade);
@@ -313,67 +305,7 @@ function highlightGrade(array) {
     }
 
 }
-//function find_highest(){
-//    console.log('highest recieved');
-//        if(student_array.length == 1){
-//            highest = student_array[0]
-//        }else {
-//            if(Number(highest.grade) < Number(student_array[student_array.length-1].grade)){
-//                unhighlight(highest);
-//                highest = student_array[student_array.length-1];
-//            }
-//        }
-//    highlight_highest();
-//    if (student_array.length == 2){ //this part of the function fixes a highlight bug, since the first entry is both highest and lowest
-//        highlight_lowest();
-//    }
-//}
-//
-//function find_lowest(){
-//    console.log('lowest recieved');
-//        if(student_array.length == 1){
-//            lowest = student_array[0]
-//        }else {
-//            if(Number(lowest.grade) > Number(student_array[student_array.length-1].grade)){
-//                unhighlight(lowest);
-//                lowest = student_array[student_array.length-1];
-//            }
-//        }
-//    highlight_lowest();
-//}
-//
-//function unhighlight(highlighted){
-//    highlighted.DOMposition.css('background-color','inherit');
-//}
-//
-//function highlight_highest(){
-//    highest.DOMposition.css('background-color','green');
-//}
-//function highlight_lowest(){
-//    lowest.DOMposition.css('background-color','red');
-//}
-//
-//function new_highest(){
-//    console.log('new highest received');
-//    highest = student_array[0];
-//    for (var i = 1; i < student_array.length; i++) {
-//        if (Number(student_array[i].grade) > Number(highest.grade)) {
-//            highest = student_array[i];
-//        }
-//    }
-//    highlight_highest();
-//}
-//
-//function new_lowest(){
-//    console.log('new lowest recieved');
-//    lowest = student_array[0];
-//    for (var i = 1; i < student_array.length; i++) {
-//        if (Number(student_array[i].grade) < Number(lowest.grade)) {
-//            lowest = student_array[i];
-//        }
-//    }
-//    highlight_lowest();
-//}
+
 function getStudentServerData(){
     $.ajax({
         dataType:'json',
@@ -388,7 +320,7 @@ function getStudentServerData(){
             for(var i = 0; i < response.data.length; i++){
                 student_array.push(response.data[i]);
                 response.data[i].DOMposition=null;
-                    response.data[i].arrayIndex=student_array.length;
+                response.data[i].arrayIndex=student_array.length;
                 response.data[i].self_delete = function(){
                     this.DOMposition.remove();
                     student_array.splice(this.arrayIndex,1);
@@ -425,10 +357,10 @@ function deleteStudentDB (studentObj){
             console.log('deletestudent'+response);
             console.log(studentObj.id+" is deleted");
 
-                }
+        }
 
-            })
-            //updateStudentList();
+    })
+    //updateStudentList();
 }
 
 //        },
@@ -437,26 +369,12 @@ function deleteStudentDB (studentObj){
 //        }
 //    });
 //}
-//function getServerData(){
-//    $.ajax({
-//        dataType: 'json',
-//        data:{
-//            api_key:'LEARNING'
-//        },
-//        method:'POST',
-//        cache: false,
-//        url: 'http://s-apis.learningfuze.com/sgt/get',
-//        success: function (response) {
-//            console.log('AJAX Success function called, with the following result:', response);
-//            ajaxSuccess=response.data;
-//            for (var i=0;i<ajaxSuccess.length;i++){
-//                student_array.push(ajaxSuccess[i]);
-//            }
-//            updateStudentList();
-//
-//        },
-//        error: function (response) {
-//            console.log("error message");
-//        }
-//    });
-//}
+
+
+
+
+
+
+
+
+
