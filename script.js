@@ -60,10 +60,13 @@ function addStudent(){
            changeIndex(this.arrayIndex);
            console.log('new highest fired');
            console.log('new lowest fired');
-           new_lowest();
-           new_highest();
+           //new_lowest();
+           //new_highest();
 
        }
+
+
+
 
    };
     student_array.push(student_object);
@@ -71,6 +74,8 @@ function addStudent(){
     console.log(student_array);
 
 }
+
+
 
 function addCouseName(courseName){
     courseList[courseName] = 1;
@@ -243,6 +248,8 @@ $(document).ready(function(){
             autoComplete(); //invoke autoComplete function
         }, 500);
     });
+
+    getStudentServerData();
 });
 
 /* function:automaticText*/
