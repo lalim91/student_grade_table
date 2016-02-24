@@ -15,7 +15,7 @@ var ajaxSuccess;
 //    'art science': null,
 //}
 var courseList = {};
-
+var result;
 /**
  * inputIds - id's of the elements that are used to add students
  * @type {string[]}
@@ -33,6 +33,7 @@ function addClick() {
     var empty_message = $('.empty');
         empty_message.remove();
     $(".dropDownShow").remove();
+    createStudentDB();
 }
 
 /**
@@ -52,6 +53,7 @@ function addStudent(){
        name:$('#studentName').val(),
        course:$('#course').val(),
        grade:$('#studentGrade').val(),
+        id: null,
        DOMposition:null,
        arrayIndex: arrayIndex,
        self_delete: function(){
@@ -64,15 +66,34 @@ function addStudent(){
            //new_highest();
 
        }
-
-
-
-
-   };
+    };
     student_array.push(student_object);
     addCouseName(student_object.course);
+    createStudentDB(student_object);
     console.log(student_array);
 
+}
+
+
+function createStudentDB(student){
+    $.ajax({
+        dataType: 'json',
+        url: 'http://s-apis.learningfuze.com/sgt/create',
+        data: {
+            api_key: 'pR7g5hP9J0',
+            name: 'student.name',
+            course: 'student.course',
+            grade: student.grade
+        },
+        method:'post',
+        cache:'false',
+        success: function (response) {
+            console.log('create student' + response);
+            student.id = response.new_id;
+
+        },
+
+})
 }
 
 
@@ -356,7 +377,7 @@ function getStudentServerData(){
         dataType:'json',
         url:'http://s-apis.learningfuze.com/sgt/get',
         data:{
-            api_key:'LEARNING'
+            api_key:'pR7g5hP9J0'
         },
         method:'post',
         cache:'false',
