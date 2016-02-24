@@ -173,13 +173,14 @@ function addStudentToDom(studentObj){
         //studentObj.element.remove();
         studentObj.self_delete();
         highlightGrade(student_array);
+        deleteStudentDB();
         console.log('my element is ',studentObj);
     });
     $('tbody').append(studentRow);
     studentRow.append(studentName, studentCourse, studentGrade, deleteButton);
     studentObj.DOMposition = studentRow;
-    console.log('highest fired');
-    console.log('lowest fired');
+    //console.log('highest fired');
+    //console.log('lowest fired');
     //find_lowest();
     //find_highest();
 
@@ -356,7 +357,7 @@ function getStudentServerData(){
         dataType:'json',
         url:'http://s-apis.learningfuze.com/sgt/get',
         data:{
-            api_key:'LEARNING'
+            api_key:'pR7g5hP9J0'
         },
         method:'post',
         cache:'false',
@@ -370,8 +371,8 @@ function getStudentServerData(){
                     this.DOMposition.remove();
                     student_array.splice(this.arrayIndex,1);
                     changeIndex(this.arrayIndex);
-                    console.log('new highest fired');
-                    console.log('new lowest fired');
+                    //console.log('new highest fired');
+                    //console.log('new lowest fired');
                     highlightGrade(student_array);
                     //new_lowest();
                     //new_highest();
@@ -387,7 +388,33 @@ function getStudentServerData(){
         }
     });
 }
+var output;
+function deleteStudentDB (studentObj){
+    var studentID = studentObj.id;
+    $.ajax({
+        dataType:'json',
+        url:'http://s-apis.learningfuze.com/sgt/delete',
+        data:{
+            api_key:'pR7g5hP9J0',
+            id:(studentID)
+        },
+        method:'post',
+        cache:'false',
+        success:function(response){
+            console.log('deletestudent'+response)
+            output=response;
+                }
 
+            })
+            //updateStudentList();
+}
+
+//        },
+//        error: function(response){
+//            console.log ('There is an error!')
+//        }
+//    });
+//}
 //function getServerData(){
 //    $.ajax({
 //        dataType: 'json',
