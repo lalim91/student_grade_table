@@ -60,15 +60,15 @@ function addStudent(){
            this.DOMposition.remove();
            student_array.splice(this.arrayIndex,1);
            changeIndex(this.arrayIndex);
-           console.log('new highest fired');
-           console.log('new lowest fired');
+           //console.log('new highest fired');
+           //console.log('new lowest fired');
            //new_lowest();
            //new_highest();
 
        }
     };
     student_array.push(student_object);
-    addCouseName(student_object.course);
+    addCourseName(student_object.course);
     createStudentDB(student_object);
     console.log(student_array);
 
@@ -81,15 +81,16 @@ function createStudentDB(student){
         url: 'http://s-apis.learningfuze.com/sgt/create',
         data: {
             api_key: 'pR7g5hP9J0',
-            name: 'student.name',
-            course: 'student.course',
+            name: student.name,
+            course: student.course,
             grade: student.grade
         },
         method:'post',
         cache:'false',
         success: function (response) {
             console.log('create student' + response);
-            student.id = response.new_id;
+            result=response;
+            student.id = result.new_id;
 
         },
 
@@ -98,7 +99,7 @@ function createStudentDB(student){
 
 
 
-function addCouseName(courseName){
+function addCourseName(courseName){
     courseList[courseName] = 1;
 }
 /**
@@ -194,7 +195,7 @@ function addStudentToDom(studentObj){
         //studentObj.element.remove();
         studentObj.self_delete();
         highlightGrade(student_array);
-        deleteStudentDB();
+        deleteStudentDB(studentObj);
         console.log('my element is ',studentObj);
     });
     $('tbody').append(studentRow);
@@ -409,21 +410,21 @@ function getStudentServerData(){
         }
     });
 }
-var output;
+
 function deleteStudentDB (studentObj){
-    var studentID = studentObj.id;
     $.ajax({
         dataType:'json',
         url:'http://s-apis.learningfuze.com/sgt/delete',
         data:{
             api_key:'pR7g5hP9J0',
-            id:(studentID)
+            student_id:studentObj.id
         },
         method:'post',
         cache:'false',
         success:function(response){
-            console.log('deletestudent'+response)
-            output=response;
+            console.log('deletestudent'+response);
+            console.log(studentObj.id+" is deleted");
+
                 }
 
             })
