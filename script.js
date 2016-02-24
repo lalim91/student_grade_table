@@ -60,8 +60,8 @@ function addStudent(){
            changeIndex(this.arrayIndex);
            console.log('new highest fired');
            console.log('new lowest fired');
-           new_lowest();
-           new_highest();
+           //new_lowest();
+           //new_highest();
 
        }
 
