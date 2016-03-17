@@ -13,9 +13,9 @@ app.service('sgtService', function () {
     this.deleteStudent = function(key){
         self.firebaseRef.child(key).remove();
     }
-
-
 });
+
+
 
 app.controller('formController', function (sgtService, $firebaseObject) {
     this.studentList = $firebaseObject(sgtService.firebaseRef);
